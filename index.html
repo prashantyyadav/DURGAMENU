@@ -1,602 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CAFE DURGA | Official Menu</title>
-    <!-- Load Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Font Awesome for Social Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <!-- Use Inter font family -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <style>
-        /* Elegant Marble and Copper/Rose Gold Palette */
-        :root {
-            --color-primary: #B87333; /* Muted Copper/Rose Gold - Primary Accent (Prices, Dividers) */
-            --color-secondary: #FCF8F5; /* Very Light Cream/Off-White - Background */
-            --color-slate: #1A1A1A; /* Deep Charcoal/Black - Header/Text Contrast */
-            --color-text-dark: #1A1A1A; /* Charcoal - Primary Text */
-            --color-text-light: #525252; /* Medium Gray for secondary text */
-            --color-divider: #DEDEDE; /* Light Gray for subtle separation */
-            --color-white: #FFFFFF;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CAFE DURGA — Menu</title>
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--color-secondary);
-        }
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome (icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <!-- Inter font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet" />
 
-        /* Custom utility classes */
-        .header-bg {
-            background: var(--color-slate);
-            box-shadow: 0 4px 10px -2px rgba(0, 0, 0, 0.5);
-        }
-        
-        /* New Menu Card Style: Subtle border, clean white background */
-        .menu-card {
-            background-color: var(--color-white);
-            border: 1px solid var(--color-divider);
-            box-shadow: 0 5px 20px -5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s;
-        }
-        .menu-card:hover {
-            transform: translateY(-2px);
-        }
+  <style>
+    :root{
+      --primary-teal: #14b8a6;
+      --accent-yellow: #facc15;
+      --bg-soft: #f7ffff;
+      --muted: #6b7280;
+      --card-shadow: 0 8px 30px rgba(20,184,166,0.08);
+    }
 
-        /* Menu Item Pattern */
-        .menu-item-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            padding: 1rem 0;
-            border-bottom: 1px dashed var(--color-divider);
-        }
-        .menu-item-row:last-child {
-            border-bottom: none;
-        }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;padding-top:0;background:linear-gradient(180deg,var(--bg-soft),#ffffff 40%);color:#0f172a;}
 
-        .menu-item-name {
-            color: var(--color-text-dark);
-            font-weight: 700;
-            font-size: 1.125rem; /* text-lg */
-            margin-right: 1rem;
-        }
+    /* header gradient */
+    .brand-gradient{
+      background: linear-gradient(90deg, rgba(20,184,166,1) 0%, rgba(34,197,94,0.95) 40%, rgba(250,193,24,1) 100%);
+      color:white;
+    }
 
-        .menu-price {
-            color: var(--color-primary); /* Copper for prices */
-            font-weight: 800;
-            font-size: 1.25rem; /* text-xl */
-            font-style: italic;
-            min-width: 4rem; /* Ensure prices align */
-            text-align: right;
-        }
+    /* small card shadow & hover pop */
+    .menu-card{box-shadow:var(--card-shadow);transition:transform .22s ease, box-shadow .22s ease;}
+    .menu-card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.10);}
 
-        .section-title {
-            color: var(--color-slate);
-            font-size: 2.5rem; /* text-5xl */
-            font-weight: 800;
-            padding-bottom: 0.5rem;
-            border-bottom: 4px solid var(--color-primary); /* Copper divider */
-            display: inline-block;
-        }
-        
-        /* Smooth scrolling for navigation */
-        html {
-            scroll-behavior: smooth;
-        }
-        
-        /* Mobile specific adjustments for better readability */
-        @media (max-width: 640px) {
-            .menu-price {
-                font-size: 1.125rem; /* text-lg */
-            }
-            .menu-item-name {
-                font-size: 1rem; /* text-base */
-            }
-            .section-title {
-                font-size: 2rem; /* text-4xl */
-            }
-        }
-    </style>
+    /* menu item layout */
+    .menu-item-row{display:flex;align-items:flex-start;justify-content:space-between;padding:.85rem 0;border-bottom:1px dashed rgba(15,23,42,0.06)}
+    .menu-item-name{font-weight:700;color:#0f172a}
+    .price-badge{font-weight:800;color:var(--accent-yellow);min-width:5rem;text-align:right;font-style:italic}
+
+    /* section title */
+    .section-title{color:var(--primary-teal);font-size:1.9rem;font-weight:800;display:inline-block;border-bottom:4px solid var(--accent-yellow);padding-bottom:.35rem}
+
+    /* nav active underline */
+    .nav-link { position:relative }
+    .nav-link::after{ content:""; position:absolute; left:0; bottom:-6px; width:100%; height:3px; background:var(--accent-yellow); transform:scaleX(0); transform-origin:left; transition:transform .28s ease;}
+    .nav-link:hover::after, .nav-link.active::after{ transform:scaleX(1); }
+
+    /* floating order button */
+    .float-order{position:fixed;right:20px;bottom:20px;z-index:80}
+
+    /* accessibility focus */
+    a:focus, button:focus { outline:3px solid rgba(20,184,166,0.18); outline-offset:3px; }
+
+    /* subtle entrance */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px)} to {opacity:1; transform:none} }
+    .reveal { animation: fadeUp .48s ease both; }
+
+    @media (max-width:640px){
+      .section-title{font-size:1.4rem}
+      .menu-item-name{font-size:.98rem}
+      .price-badge{font-size:.98rem}
+    }
+
+    /* print friendly - hide interactive elements when printing */
+    @media print{
+      nav, .float-order, .search-bar, .socials-mobile { display:none !important; }
+      body { background: white; }
+    }
+  </style>
 </head>
-<body class="text-gray-800">
+<body>
 
-    <!-- Header & Navigation Bar (Professional Two-Tier Structure) -->
-    <header class="header-bg sticky top-0 z-50">
-        <!-- Top Tier: Branding and Socials -->
-        <div class="container mx-auto px-4 py-3 flex justify-center items-center relative">
-            
-            <!-- Left Social Icons (Visible on large screens) -->
-            <div class="hidden md:flex absolute left-4 space-x-4">
-                <a href="https://www.instagram.com/cafedurga.goa" target="_blank" class="text-white hover:text-gray-300 transition text-lg" title="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://share.google/UUDs8GZKXrpYLVIPq" target="_blank" class="text-white hover:text-gray-300 transition text-lg" title="Google My Business">
-                    <i class="fab fa-google"></i>
-                </a>
-            </div>
-
-            <!-- Central Title - REDUCED SIZE ON MOBILE (text-2xl) to prevent overlap -->
-            <h1 class="text-2xl md:text-4xl font-extrabold text-white tracking-widest uppercase" style="letter-spacing: 0.2em; color: var(--color-primary);">CAFE DURGA</h1>
-            
-            <!-- Right Placeholder/Future Content (Ensures Center Alignment) -->
-            <div class="hidden md:block absolute right-4 w-12"></div>
-
-            <!-- Mobile Social Icons (Visible on small screens) -->
-            <div class="md:hidden absolute right-4 space-x-3 flex">
-                <a href="https://www.instagram.com/cafedurga.goa" target="_blank" class="text-white hover:text-gray-300 transition text-lg">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://share.google/UUDs8GZKXrpYLVIPq" target="_blank" class="text-white hover:text-gray-300 transition text-lg">
-                    <i class="fab fa-google"></i>
-                </a>
-            </div>
+  <!-- HEADER -->
+  <header class="brand-gradient sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <div class="rounded-lg p-2 bg-white/10">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" class="text-white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 1 18 0 9 9 0 0 1-18 0z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"></path>
+            <path d="M8 12h8M10 8h4M10 16h4" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
         </div>
+        <div>
+          <h1 class="text-white text-2xl md:text-3xl font-extrabold tracking-wider uppercase" style="letter-spacing:.12em">CAFE DURGA</h1>
+          <p class="text-white/90 text-xs md:text-sm">Pillene Branch — Goa</p>
+        </div>
+      </div>
 
-        <!-- Bottom Tier: Navigation Links -->
-        <nav class="w-full border-t border-b border-white/20">
-            <!-- Desktop Navigation -->
-            <div class="container mx-auto hidden lg:flex justify-center space-x-6 text-sm font-medium py-3">
-                <a href="#beverages" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Beverages</a>
-                <a href="#shakes" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Shakes</a>
-                <a href="#special" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Breakfast & Specials</a>
-                <a href="#snacks" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Snacks</a>
-                <a href="#south-indian" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">South Indian & Parathas</a>
-                <a href="#sandwiches" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Sandwiches</a>
-                <a href="#pav-bhaji-section" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Pav Bhaji</a>
-                <a href="#mains" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Main Course</a>
-                <a href="#pizza-section" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Pizza & Pasta</a>
-                <a href="#chinese" class="nav-link text-white hover:text-white/70 transition duration-150 relative group">Chinese</a>
-            </div>
-            
-            <!-- Scroll Navigation for Mobile (Scrollable Row) - Compact design -->
-            <div class="md:hidden w-full overflow-x-auto whitespace-nowrap py-2 px-4 border-b border-white/10">
-                <div class="inline-flex space-x-4">
-                    <a href="#beverages" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Drinks</a>
-                    <a href="#shakes" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Shakes</a>
-                    <a href="#special" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Specials</a>
-                    <a href="#snacks" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Snacks</a>
-                    <a href="#south-indian" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">South Indian</a>
-                    <a href="#sandwiches" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Sandwiches</a>
-                    <a href="#pav-bhaji-section" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Pav Bhaji</a>
-                    <a href="#mains" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Mains</a>
-                    <a href="#pizza-section" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Pizza/Pasta</a>
-                    <a href="#chinese" class="text-white text-xs font-medium px-2 py-1 rounded-full bg-white/10 hover:bg-white/20 transition">Chinese</a>
-                </div>
-            </div>
+      <div class="hidden md:flex items-center gap-4">
+        <nav aria-label="Primary" class="flex gap-4 text-sm font-medium">
+          <a href="#beverages" class="nav-link text-white/95 px-2">Beverages</a>
+          <a href="#shakes" class="nav-link text-white/95 px-2">Shakes</a>
+          <a href="#special" class="nav-link text-white/95 px-2">Breakfast</a>
+          <a href="#pav-bhaji-section" class="nav-link text-white/95 px-2">Pav Bhaji</a>
+          <a href="#mains" class="nav-link text-white/95 px-2">Mains</a>
         </nav>
-        <script>
-            // Add underline effect functionality for nav links (Desktop)
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.innerHTML += '<span class="absolute bottom-0 left-0 w-full h-0.5 bg-white scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-center"></span>';
-            });
-        </script>
-    </header>
 
-    <!-- Main Content Area -->
-    <main class="container mx-auto px-4 py-10">
-        <h2 class="text-center text-5xl font-extrabold text-color-primary mb-12" style="color: var(--color-slate);">THE MENU</h2>
-
-        <!-- Helper function to generate menu items -->
-        <script>
-            /**
-             * Renders a list of menu items into a specified HTML element.
-             * @param {string} sectionId - The ID of the HTML section to append items to.
-             * @param {Array<Array<string>>} items - The list of [name, price] pairs.
-             */
-            function renderMenu(sectionId, items) {
-                const section = document.getElementById(sectionId);
-                if (!section) return;
-
-                const listHtml = items.map(item => {
-                    const name = item[0].trim();
-                    const price = item[1].trim();
-
-                    // Handle special cases like Pasta where price is "200/240"
-                    const displayPrice = price.includes('/') ? 
-                                         `<span class="text-sm font-normal text-color-text-light mr-1">V/NV:</span>${price}` : 
-                                         `₹${price}`;
-
-                    return `
-                        <div class="menu-item-row">
-                            <span class="menu-item-name">${name}</span>
-                            <span class="menu-price">${displayPrice}</span>
-                        </div>
-                    `;
-                }).join('');
-
-                section.innerHTML = listHtml;
-            }
-
-            // --- Menu Data (Parsed from PDF) ---
-            const beverages = [
-                ["Cold Coffee", "150"], ["Strong Cold Coffee", "170"], 
-                ["Cold Coffee With Crush", "185"], ["Cold Coffee with Ice Cream", "200"], 
-                ["Cold Chocolate", "140"], ["Cold Bournvita", "100"], ["Hot Bournvita", "100"], 
-                ["Americano", "120"], ["Hot Coffee", "120"], ["Cappuccino", "140"], 
-                ["Café Latte", "140"], ["Hot Chocolate", "140"], ["Iced Americano", "140"], 
-                ["Lemon Ice Tea", "140"], ["Peach Ice Tea", "140"], ["Fresh Lime Soda/ Water", "100"], 
-                ["Lemon Tea", "100"], ["Green Tea", "100"], ["Black Tea", "75"], ["Tea", "30"]
-            ];
-
-            const thickShakes = [
-                ["Ferrero Rocher Shake", "250"], ["Oreo Cookie Shake", "220"], 
-                ["KitKat Shake", "220"], ["Orero KitKat Shake", "250"], 
-                ["Belgian Chocolate Shake", "200"], ["Vanilia Shake", "200"], 
-                ["Banana Shake", "200"], ["Mango Shake", "200"], 
-                ["Strawberry Shake", "200"], ["Chickoo Shake", "200"]
-            ];
-            
-            const cafeDurgaSpecial = [
-                ["Egg Omelette", "150"], ["Masala Omelette", "180"], ["Masala Cheese Omelette", "200"], 
-                ["Mushroom&Herb Omelette", "200"], ["Egg White Omelette", "200"], ["Egg Bhurji", "200"], 
-                ["Scramblled Egg", "150"], ["Omelette Sandwich", "150"], ["Omelette Cheese Sandwich", "170"], 
-                ["Paneer Bhurji", "200"]
-            ];
-            
-            const breadsSpreads = [
-                ["Bun Maska", "80"], ["Bun Maska Jam", "100"], 
-                ["Bread Butter", "80"], ["Bread Butter Jam", "100"], 
-                ["Bread Butter Cheese Jam", "120"]
-            ];
-
-            const snacks = [
-                ["Vada Pav", "30"], ["Poha", "80"], ["Upma", "80"], 
-                ["Sabudana Khichadi", "180"], ["Sabudana Vada", "180"], 
-                ["Misal Pav", "140"], ["Maggie", "100"], ["Masala Maggie", "120"], 
-                ["Cheese Masala Maggie", "150"], ["Egg Malasa Maggie", "170"], 
-                ["Egg Masala Cheese Maggie", "180"], ["Kanda (Onion) Bhajjia", "150"], 
-                ["Allo Bhajjia", "150"], ["Paneer Pakoda", "180"], ["Garlic Toast", "150"]
-            ];
-
-            const southIndian = [
-                ["Medu Wada", "80"], ["Steam Idli", "80"], ["Idli & Wada (2 Idili & 1 Wada)", "120"], 
-                ["Plain Dosa", "120"], ["Masala Dosa", "140"], ["Ghee/Butter Sada Dosa", "140"], 
-                ["Ghee/Butter Malasa Dosa", "160"], ["Plain Cheese Dosa", "140"], ["Masala Cheese Dosa", "160"], 
-                ["Onion Uttappa", "160"], ["Onion Cheese Uttappa", "180"], ["Tomato Uttappa", "160"], 
-                ["Tomato Cheese Uttappa", "180"], ["Onion Tomato Uttappa", "200"], ["Onion Tomato Cheese Uttappa", "220"], 
-                ["Plain Rawa Dosa", "150"], ["Plain Ghee Rawa Dosa", "170"], ["Rawa Masala Dosa", "190"], 
-                ["Rawa Ghee Masala Dosa", "210"], ["Rawa Onion Dosa", "170"], ["Rawa Onion Ghee Dosa", "180"],
-                ["Mysore Sada Dosa", "130"], ["Mysore Masala Dosa", "150"], ["Mysore Masala Cheese Dosa", "170"]
-            ];
-
-            const parathas = [
-                ["Aloo Paratha", "180"], ["Gobi Paratha", "180"], ["Aloo Cheese Paratha", "210"], 
-                ["Mix Vegetable Paratha", "180"], ["Paneer Paratha", "210"], ["Cheese Paratha", "210"]
-            ];
-
-            const sandwiches = [
-                ["Veg Sandwich", "150"], ["Veg Cheese Sandwich", "180"], ["Veg Paneer Sandwich", "200"], 
-                ["Veg Paneer Cheese Sandwich", "220"], ["Paneer Tikka Sandwich", "200"], 
-                ["Paneer Tikka Cheese Sandwich", "220"], ["Corn Sandwich", "180"], ["Corn Cheese Sandwich", "200"], 
-                ["Chicken Mayo Sandwich", "220"], ["Chicken Cheese Mayo Sandwich", "250"], 
-                ["Chicken Barbeque Sandwich", "220"], ["Chicken Barbeque Cheese Sandwich", "250"], 
-                ["Chicken Tikka Sandwich", "220"], ["Chicken Tikka Cheese Sandwich", "250"], 
-                ["Vegetable Club Sandwich", "180"], ["Vegetable Club Cheese Sandwich", "220"], 
-                ["Chicken Club Sandwich", "280"], ["Chicken Club Cheese Sandwich", "300"], 
-                ["Nutella Sandwich", "150"], ["Nutella Cheeese Sandwich", "170"]
-            ];
-            
-            const pastaFries = [
-                ["French Fries Salted", "120"], ["Peri Peri Fries", "140"], ["Masala Fries", "140"], 
-                ["Cheese Fries", "160"], 
-                // Special combined item for Veg / Chicken
-                ["Penne Alfredo Pasta", "200/240"], 
-                ["Penne Arabiatta Pasta", "200/240"], 
-                ["Agilo Olio Spaghetti Pasta", "200/240"]
-            ];
-
-            const pavBhaji = [
-                ["Amul Pav Bhaji", "140"], ["Cheese Pav Bhaji", "170"], ["Paneer Pav Bhaji", "170"], 
-                ["Paneer Cheese Pav Bhaji", "190"], ["Masala Pav (double)", "140"], 
-                ["Extra Pav (Sinlge Pav)", "20"], ["Extra Pav (Double Pav)", "40"]
-            ];
-
-            const pizza = [
-                ["Margherrita Pizza", "185"], ["Farmland Pizza", "200"], ["Corn & Cheese Pizza", "200"], 
-                ["Paneer Tandoori Pizza", "240"], ["Indo-Italian Pizza", "240"], 
-                ["Chicken Barbecue Pizza", "280"], ["Chicken Tikka Pizza", "280"], 
-                ["Chicken Peri Peri Pizza", "280"], ["Double Chicken Pizza (With Tikka & Peri Peri)", "320"]
-            ];
-
-            const mainCourseCombos = [
-                ["Mutter Paneer", "300"], ["Paneer Masala", "280"], ["Paneer Bhurji", "300"], 
-                ["Mushroom Masala", "280"], ["Aloo Mutter", "250"], ["Green Peas Masala", "250"], 
-                ["Sev Bhaji", "250"], ["Chana Masala", "250"], ["Chana Paneer Masala", "280"], 
-                ["Veg Kolhapuri", "250"], ["Dal Fry", "200"], ["Dal Tadka", "220"],
-                // Thali and Special Thali are complex items, treating them as special notes
-                ["Thali (Dal Fry, Gravy Vegetable, Dry Vegetable, 2 Laccha Paratha, Steam Rice, Roasted Papad)", "330"],
-                ["Special Thali (Dal Tadka, Paneer Gravy, Dry Vegetable, 2 Laccha Paratha, Tawa Pulav, Roasted Papad & Sweet)", "380"]
-            ];
-
-            const riceMeals = [
-                ["Jeera Rice With Dal Tardka", "180"], ["Dal Khichadi", "220"], ["Veg Pulav", "200"], 
-                ["Tawa Pulav", "220"], ["Paneer Pulav", "260"], ["Egg Pulav", "180"], 
-                ["Mushroom Tawa Pulav", "260"], ["Steam Rice", "120"], ["Jeera Rice", "150"]
-            ];
-
-            const chineseVeg = [
-                ["Paneer Chilly", "220"], ["Paneer 65", "220"], ["Paneer Crispy", "220"], 
-                ["Gobi Manchurian", "200"], ["Veg Crispy", "200"], ["Veg 65 Dry", "200"], 
-                ["Mushroom Chilli", "225"], ["Veg Manchurian Dry", "185"], ["Veg Manchurian Gravy", "220"]
-            ];
-
-            const chineseNonVeg = [
-                ["Chicken Chilly", "240"], ["Chicken 65", "240"], ["Chicken Lolipop (6 Pcs)", "250"], 
-                ["Chicken Lolipop In Schezwan Sauce", "280"], ["Chicken Crispy", "240"], 
-                ["Chicken Manchurian Dry", "245"], ["Chicken Manchurian Gravy", "260"]
-            ];
-
-            const friedRiceNoodlesVeg = [
-                ["Veg Fried Rice", "185"], ["Mushroom Fried Rice", "200"], ["Veg Schezwan Fried Rice", "200"], 
-                ["Veg Manchurian Fried Rice", "225"], ["Veg Tripple Schezwan Fried Rice", "250"], 
-                ["Veg Hakka Noodles", "185"], ["Veg Schezwan Hakka Noodles", "200"],
-                ["Veg Manchurian Hakka Noodle", "225"] // Placeholder price
-            ];
-
-            const friedRiceNoodlesNonVeg = [
-                ["Chicken Fried Rice", "240"], ["Chicken Egg Fried Rice", "245"], ["Chicken Schezwan Fried Rice", "245"], 
-                ["Chicken Triple Schezwan Fried Rice", "285"], ["Chicken Manchurian Fried Rice", "285"], 
-                ["Chicken Hakka Noodle", "240"], ["Chicken Schezwan Hakka Noodle", "245"], 
-                ["Chicken Manchurian Hakka Noodle", "275"]
-            ];
-
-            const extras = [
-                ["* Cheese", "30"], ["* Butter", "25"], ["* Paratha", "40"], ["Mineral Water", "20"]
-            ];
-
-
-            window.onload = function() {
-                // Render menu sections
-                renderMenu('beverages-list', beverages);
-                renderMenu('shakes-list', thickShakes);
-                renderMenu('cafe-special-list', cafeDurgaSpecial);
-                renderMenu('breads-spreads-list', breadsSpreads);
-                renderMenu('snacks-list', snacks);
-                renderMenu('south-indian-list', southIndian);
-                renderMenu('parathas-list', parathas);
-                renderMenu('sandwiches-list', sandwiches);
-                renderMenu('pasta-fries-list', pastaFries);
-                renderMenu('pav-bhaji-list', pavBhaji);
-                renderMenu('pizza-list', pizza);
-                renderMenu('main-course-list', mainCourseCombos);
-                renderMenu('rice-meals-list', riceMeals);
-                renderMenu('chinese-veg-list', chineseVeg);
-                renderMenu('chinese-non-veg-list', chineseNonVeg);
-                renderMenu('fried-rice-veg-list', friedRiceNoodlesVeg);
-                renderMenu('fried-rice-non-veg-list', friedRiceNoodlesNonVeg);
-                renderMenu('extras-list', extras);
-
-                // Add smooth scrolling function for all header links (This handles the sliding action)
-                document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href');
-                        const targetElement = document.querySelector(targetId);
-
-                        if (targetElement) {
-                            // Scroll smoothly to the target element, compensating for the sticky header height
-                            const headerHeight = document.querySelector('header').offsetHeight;
-                            const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
-                            
-                            window.scrollTo({
-                                top: elementPosition - headerHeight - 20, // 20px extra margin
-                                behavior: 'smooth'
-                            });
-                        }
-                    });
-                });
-            }
-        </script>
-        
-        <!-- === BEVERAGES SECTION === -->
-        <section id="beverages" class="mb-12">
-            <h3 class="section-title mb-8">Beverages</h3>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Coffee & Hot Drinks</h4>
-                    <div id="beverages-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-                <div class="menu-card rounded-xl p-6 hidden lg:block">
-                     <!-- Placeholder for aesthetics on desktop -->
-                     <div class="flex flex-col items-center justify-center h-full text-center" style="color: var(--color-text-light);">
-                        <!-- Coffee Icon - Changed color to Primary accent -->
-                        <svg class="w-16 h-16 mb-4" style="color: var(--color-primary);" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v8m0 0v8m0-8h8m-8 0H4m8 0a6 6 0 100-12 6 6 0 000 12zM20 18H4"></path></svg>
-                        <p class="text-lg font-semibold">Freshly Brewed & Blended</p>
-                        <p class="text-sm">Enjoy the perfect start to your day.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- === THICK SHAKES SECTION === -->
-        <section id="shakes" class="mb-12">
-            <h3 class="section-title mb-8">Thick Shakes</h3>
-            <div class="menu-card rounded-xl p-6 max-w-2xl mx-auto">
-                <div id="shakes-list">
-                    <!-- Content inserted by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- === CAFE DURGA SPECIAL SECTION (Breakfast & Specials) === -->
-        <section id="special" class="mb-12">
-            <h3 class="section-title mb-8">Breakfast & Specials</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Cafe Durga Special (Omelettes/Bhurji) -->
-                <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Morning Delights & Eggs</h4>
-                    <div id="cafe-special-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-                <!-- Breads & Spreads -->
-                <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Breads & Spreads</h4>
-                    <div id="breads-spreads-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- === SNACKS SECTION === -->
-        <section id="snacks" class="mb-12">
-            <h3 class="section-title mb-8">Snacks</h3>
-            <div class="menu-card rounded-xl p-6">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8">
-                    <div id="snacks-list" class="col-span-1 sm:col-span-2 lg:col-span-3">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- === SOUTH INDIAN & PARATHAS SECTION === -->
-        <section id="south-indian" class="mb-12">
-            <h3 class="section-title mb-8">South Indian & Parathas</h3>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <!-- South Indian -->
-                <div class="menu-card rounded-xl p-6 lg:col-span-2">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Dosa, Idli & Uttappa</h4>
-                    <div id="south-indian-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-                <!-- Parathas -->
-                <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Paratha's</h4>
-                    <div id="parathas-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- === GRILLED SANDWICHES SECTION === -->
-        <section id="sandwiches" class="mb-12">
-            <h3 class="section-title mb-8">Grilled Sandwiches</h3>
-            <div class="menu-card rounded-xl p-6">
-                <div id="sandwiches-list">
-                    <!-- Content inserted by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- === PAV BHAJI SECTION (Moved to its own section for clear link) === -->
-        <section id="pav-bhaji-section" class="mb-12">
-             <h3 class="section-title mb-8">Pav Bhaji</h3>
-             <div class="menu-card rounded-xl p-6 max-w-2xl mx-auto">
-                <div id="pav-bhaji-list">
-                    <!-- Content inserted by JavaScript -->
-                </div>
-            </div>
-        </section>
-
-        <!-- === MAINS & RICE SECTION === -->
-        <section id="mains" class="mb-12">
-            <h3 class="section-title mb-8">Main Course & Rice</h3>
-            
-            <!-- Main Course Combos -->
-            <div class="menu-card rounded-xl p-6 mb-8">
-                <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Main Course (Combo with Paratha's)</h4>
-                <div id="main-course-list">
-                    <!-- Content inserted by JavaScript -->
-                </div>
-            </div>
-            
-            <!-- Rice Meals -->
-            <div class="menu-card rounded-xl p-6 mb-8">
-                <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Rice Meals</h4>
-                <div id="rice-meals-list">
-                    <!-- Content inserted by JavaScript -->
-                </div>
-            </div>
-            
-        </section>
-        
-        <!-- === PIZZA & PASTA SECTION === -->
-        <section id="pizza-section" class="mb-12">
-            <h3 class="section-title mb-8">Pizza, Pasta & Fries</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <!-- Pizza -->
-                 <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Pizza</h4>
-                    <div id="pizza-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-                 <!-- Pasta & Fries -->
-                <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Pasta & Fries</h4>
-                    <div id="pasta-fries-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- === CHINESE & NOODLES SECTION === -->
-        <section id="chinese" class="mb-12">
-            <h3 class="section-title mb-8">Chinese & Noodles</h3>
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-                <!-- Chinese -->
-                <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Chinese Starters (Veg & Non-Veg)</h4>
-                    <div id="chinese-veg-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                    <div id="chinese-non-veg-list" class="mt-4 border-t border-dashed pt-4">
-                         <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-                <!-- Fried Rice & Noodles -->
-                <div class="menu-card rounded-xl p-6">
-                    <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Fried Rice & Noodles (Veg & Non-Veg)</h4>
-                    <div id="fried-rice-veg-list">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                    <div id="fried-rice-non-veg-list" class="mt-4 border-t border-dashed pt-4">
-                        <!-- Content inserted by JavaScript -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Extras -->
-            <div class="menu-card rounded-xl p-6 max-w-xl mx-auto">
-                <h4 class="text-xl font-bold mb-4" style="color: var(--color-text-light);">Extras</h4>
-                <div id="extras-list">
-                    <!-- Content inserted by JavaScript -->
-                </div>
-            </div>
-
-        </section>
-        
-    </main>
-
-    <!-- Footer with Contact Info & Socials -->
-    <footer class="header-bg py-8">
-        <div class="container mx-auto px-4 text-center text-white">
-            <p class="text-2xl font-semibold mb-2" style="color: var(--color-primary);">CAFE DURGA</p>
-            <p class="text-sm mb-1">Goa - Pillene Branch</p>
-            <p class="text-xl font-bold mb-4">📞 7741000209</p>
- 
-            <!-- Social Icons in Footer -->
-            <div class="flex justify-center space-x-6 mb-6">
-                <a href="https://www.instagram.com/cafedurga.goa" target="_blank" class="text-white hover:text-gray-300 transition transform hover:scale-110">
-                    <i class="fab fa-instagram text-2xl"></i>
-                </a>
-                <a href="https://share.google/UUDs8GZKXrpYLVIPq" target="_blank" class="text-white hover:text-gray-300 transition transform hover:scale-110" title="Google My Business">
-                    <i class="fab fa-google text-2xl"></i>
-                </a>
-            </div>
-
-            <p class="text-xs opacity-75">&copy; 2025 Cafe Durga. All Rights Reserved.</p>
+        <div class="flex items-center gap-3">
+          <a href="https://www.instagram.com/cafedurga.goa" aria-label="Instagram" class="text-white/90 hover:scale-105 transform">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://share.google/UUDs8GZKXrpYLVIPq" aria-label="Google Business" class="text-white/90 hover:scale-105 transform">
+            <i class="fab fa-google"></i>
+          </a>
         </div>
-    </footer>
+      </div>
 
+      <!-- mobile socials -->
+      <div class="md:hidden flex items-center gap-3 socials-mobile pr-1">
+        <a href="https://www.instagram.com/cafedurga.goa" class="text-white">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <button class="text-white js-open-nav" aria-expanded="false" aria-controls="mobile-nav">
+          <i class="fa fa-bars"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- mobile nav -->
+    <div id="mobile-nav" class="md:hidden bg-white/5 border-t border-white/10">
+      <div class="max-w-6xl mx-auto px-4 py-2 overflow-x-auto">
+        <div class="inline-flex gap-3 whitespace-nowrap">
+          <a href="#beverages" class="text-white text-sm px-3 py-1 rounded-full bg-white/6">Drinks</a>
+          <a href="#shakes" class="text-white text-sm px-3 py-1 rounded-full bg-white/6">Shakes</a>
+          <a href="#special" class="text-white text-sm px-3 py-1 rounded-full bg-white/6">Breakfast</a>
+          <a href="#pav-bhaji-section" class="text-white text-sm px-3 py-1 rounded-full bg-white/6">Pav Bhaji</a>
+          <a href="#mains" class="text-white text-sm px-3 py-1 rounded-full bg-white/6">Mains</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FLOATING ORDER / PRINT -->
+  <div class="float-order">
+    <div class="flex flex-col gap-3">
+      <a href="tel:7741000209" class="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-white shadow-lg transform hover:scale-105 transition" aria-label="Call to order">
+        <i class="fa fa-phone-alt"></i> Order
+      </a>
+      <button id="printMenu" class="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-white text-slate-800 shadow" title="Print or Download Menu">
+        <i class="fa fa-file-pdf"></i> Download
+      </button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-4 py-12">
+
+    <!-- Intro -->
+    <section class="text-center mb-10 reveal">
+      <h2 class="section-title mx-auto">THE MENU</h2>
+      <p class="mt-4 text-muted text-sm text-gray-600 max-w-2xl mx-auto">Freshly prepared, honest portions — scroll or use search to find your favourite.</p>
+
+      <!-- search -->
+      <div class="mt-6 flex justify-center">
+        <div class="w-full max-w-xl">
+          <label for="menuSearch" class="sr-only">Search menu</label>
+          <div class="relative">
+            <input id="menuSearch" class="search-bar w-full rounded-xl border border-gray-200 py-3 pl-4 pr-12 shadow-sm" placeholder="Search items, e.g. 'Pasta' or 'Paneer'..." type="search" />
+            <button id="clearSearch" title="Clear" class="absolute right-2 top-1/2 -translate-y-1/2 text-gray-500 hidden">
+              <i class="fa fa-times"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Grid layout for major sections -->
+    <section id="beverages" class="mb-8 reveal">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="menu-card rounded-2xl p-6 bg-white">
+          <h3 class="text-lg font-bold mb-3">Beverages — Coffee & Hot Drinks</h3>
+          <div id="beverages-list" aria-live="polite"></div>
+        </div>
+        <div class="menu-card rounded-2xl p-6 bg-white flex flex-col items-center justify-center text-center text-gray-600">
+          <svg width="84" height="84" viewBox="0 0 24 24" fill="none" class="mb-3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8 7v4a4 4 0 108 0V7" stroke="#14b8a6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M3 12h18" stroke="#facc15" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <p class="font-semibold">Freshly Brewed & Blended</p>
+          <p class="text-sm mt-1">Single origin coffee, rich shakes & chilled teas.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="shakes" class="mb-8 reveal">
+      <div class="menu-card p-6 rounded-2xl bg-white">
+        <h3 class="text-lg font-bold mb-3">Thick Shakes</h3>
+        <div id="shakes-list"></div>
+      </div>
+    </section>
+
+    <section id="special" class="mb-8 reveal">
+      <h3 class="section-title">Breakfast & Specials</h3>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Eggs & Morning</h4>
+          <div id="cafe-special-list"></div>
+        </div>
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Breads & Spreads</h4>
+          <div id="breads-spreads-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="snacks" class="mb-8 reveal">
+      <h3 class="section-title">Snacks</h3>
+      <div class="mt-6 menu-card p-6 rounded-2xl bg-white">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div id="snacks-list" class="col-span-1 sm:col-span-2 lg:col-span-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="south-indian" class="mb-8 reveal">
+      <h3 class="section-title">South Indian & Parathas</h3>
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2 menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Dosa, Idli & Uttappa</h4>
+          <div id="south-indian-list"></div>
+        </div>
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Parathas</h4>
+          <div id="parathas-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="sandwiches" class="mb-8 reveal">
+      <h3 class="section-title">Grilled Sandwiches</h3>
+      <div class="mt-6 menu-card p-6 rounded-2xl bg-white">
+        <div id="sandwiches-list"></div>
+      </div>
+    </section>
+
+    <section id="pav-bhaji-section" class="mb-8 reveal">
+      <h3 class="section-title">Pav Bhaji</h3>
+      <div class="mt-6 menu-card p-6 rounded-2xl bg-white max-w-2xl">
+        <div id="pav-bhaji-list"></div>
+      </div>
+    </section>
+
+    <section id="mains" class="mb-8 reveal">
+      <h3 class="section-title">Main Course & Rice</h3>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Main Course</h4>
+          <div id="main-course-list"></div>
+        </div>
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Rice Meals</h4>
+          <div id="rice-meals-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pizza-section" class="mb-8 reveal">
+      <h3 class="section-title">Pizza, Pasta & Fries</h3>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Pizza</h4>
+          <div id="pizza-list"></div>
+        </div>
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Pasta & Fries</h4>
+          <div id="pasta-fries-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="chinese" class="mb-8 reveal">
+      <h3 class="section-title">Chinese & Noodles</h3>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Chinese Starters</h4>
+          <div id="chinese-veg-list"></div>
+          <div id="chinese-non-veg-list" class="mt-4 border-t border-dashed pt-4"></div>
+        </div>
+        <div class="menu-card p-6 rounded-2xl bg-white">
+          <h4 class="font-semibold mb-3">Fried Rice & Noodles</h4>
+          <div id="fried-rice-veg-list"></div>
+          <div id="fried-rice-non-veg-list" class="mt-4 border-t border-dashed pt-4"></div>
+        </div>
+      </div>
+
+      <div class="mt-6 max-w-xl mx-auto menu-card p-6 rounded-2xl bg-white">
+        <h4 class="font-semibold mb-3">Extras</h4>
+        <div id="extras-list"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 text-white py-8">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p class="text-2xl font-bold mb-1" style="color:var(--accent-yellow)">CAFE DURGA</p>
+      <p class="text-sm mb-3">Goa — Pillene Branch • <span class="font-semibold">📞 7741000209</span></p>
+      <div class="flex justify-center gap-4 mb-3">
+        <a href="https://www.instagram.com/cafedurga.goa" class="text-white/90">
+          <i class="fab fa-instagram fa-2x"></i>
+        </a>
+        <a href="https://share.google/UUDs8GZKXrpYLVIPq" class="text-white/90">
+          <i class="fab fa-google fa-2x"></i>
+        </a>
+      </div>
+      <p class="text-xs opacity-80">&copy; 2025 Cafe Durga. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- SCRIPT: Data + Render logic -->
+  <script>
+    /***** Data (cleaner arrays) *****/
+    const menuData = {
+      beverages: [
+        ["Cold Coffee","150"],["Strong Cold Coffee","170"],["Cold Coffee With Crush","185"],
+        ["Cold Coffee with Ice Cream","200"],["Cold Chocolate","140"],["Cold Bournvita","100"],
+        ["Hot Bournvita","100"],["Americano","120"],["Hot Coffee","120"],["Cappuccino","140"],
+        ["Café Latte","140"],["Hot Chocolate","140"],["Iced Americano","140"],["Lemon Ice Tea","140"],
+        ["Peach Ice Tea","140"],["Fresh Lime Soda/ Water","100"],["Lemon Tea","100"],["Green Tea","100"],
+        ["Black Tea","75"],["Tea","30"]
+      ],
+      thickShakes: [
+        ["Ferrero Rocher Shake","250"],["Oreo Cookie Shake","220"],["KitKat Shake","220"],
+        ["Oreo KitKat Shake","250"],["Belgian Chocolate Shake","200"],["Vanilla Shake","200"],
+        ["Banana Shake","200"],["Mango Shake","200"],["Strawberry Shake","200"],["Chikoo Shake","200"]
+      ],
+      cafeDurgaSpecial: [
+        ["Egg Omelette","150"],["Masala Omelette","180"],["Masala Cheese Omelette","200"],
+        ["Mushroom & Herb Omelette","200"],["Egg White Omelette","200"],["Egg Bhurji","200"],
+        ["Scrambled Egg","150"],["Omelette Sandwich","150"],["Omelette Cheese Sandwich","170"],["Paneer Bhurji","200"]
+      ],
+      breadsSpreads: [
+        ["Bun Maska","80"],["Bun Maska Jam","100"],["Bread Butter","80"],["Bread Butter Jam","100"],["Bread Butter Cheese Jam","120"]
+      ],
+      snacks: [
+        ["Vada Pav","30"],["Poha","80"],["Upma","80"],["Sabudana Khichadi","180"],
+        ["Sabudana Vada","180"],["Misal Pav","140"],["Maggie","100"],["Masala Maggie","120"],
+        ["Cheese Masala Maggie","150"],["Egg Masala Maggie","170"],["Egg Masala Cheese Maggie","180"],
+        ["Kanda (Onion) Bhajjia","150"],["Allo Bhajjia","150"],["Paneer Pakoda","180"],["Garlic Toast","150"]
+      ],
+      southIndian: [
+        ["Medu Wada","80"],["Steam Idli","80"],["Idli & Wada (2 Idli & 1 Wada)","120"],["Plain Dosa","120"],
+        ["Masala Dosa","140"],["Ghee/Butter Sada Dosa","140"],["Ghee/Butter Masala Dosa","160"]
+      ],
+      parathas: [
+        ["Aloo Paratha","180"],["Gobi Paratha","180"],["Aloo Cheese Paratha","210"],
+        ["Mix Vegetable Paratha","180"],["Paneer Paratha","210"],["Cheese Paratha","210"]
+      ],
+      sandwiches: [
+        ["Veg Sandwich","150"],["Veg Cheese Sandwich","180"],["Paneer Tikka Sandwich","200"],
+        ["Chicken Mayo Sandwich","220"],["Chicken Cheese Mayo Sandwich","250"],["Nutella Sandwich","150"]
+      ],
+      pastaFries: [
+        ["French Fries Salted","120"],["Peri Peri Fries","140"],["Masala Fries","140"],
+        ["Cheese Fries","160"],["Penne Alfredo Pasta","200/240"],["Penne Arrabiata Pasta","200/240"],["Aglio Olio Spaghetti","200/240"]
+      ],
+      pavBhaji: [
+        ["Amul Pav Bhaji","140"],["Cheese Pav Bhaji","170"],["Paneer Pav Bhaji","170"],["Paneer Cheese Pav Bhaji","190"]
+      ],
+      pizza: [
+        ["Margherita Pizza","185"],["Farmland Pizza","200"],["Corn & Cheese Pizza","200"],
+        ["Paneer Tandoori Pizza","240"],["Chicken Barbecue Pizza","280"]
+      ],
+      mains: [
+        ["Mutter Paneer","300"],["Paneer Masala","280"],["Paneer Bhurji","300"],["Dal Fry","200"],
+        ["Thali (Dal Fry, Gravy Vegetable, 2 Laccha Paratha, Steam Rice, Papad)","330"]
+      ],
+      riceMeals: [
+        ["Jeera Rice With Dal Tadka","180"],["Dal Khichadi","220"],["Veg Pulav","200"],["Tawa Pulav","220"]
+      ],
+      chineseVeg: [
+        ["Paneer Chilly","220"],["Gobi Manchurian","200"],["Veg Crispy","200"]
+      ],
+      chineseNonVeg: [
+        ["Chicken Chilly","240"],["Chicken 65","240"],["Chicken Lolipop (6 Pcs)","250"]
+      ],
+      friedRiceVeg: [
+        ["Veg Fried Rice","185"],["Veg Hakka Noodles","185"]
+      ],
+      friedRiceNonVeg: [
+        ["Chicken Fried Rice","240"],["Chicken Hakka Noodle","240"]
+      ],
+      extras: [
+        ["* Cheese","30"],["* Butter","25"],["* Paratha","40"],["Mineral Water","20"]
+      ]
+    };
+
+    /***** Utility: format price *****/
+    function formatPrice(raw){
+      raw = String(raw).trim();
+      if(!raw) return "";
+      // If contains slash, keep both parts and add ₹ to each number
+      if(raw.includes('/')){
+        return raw.split('/').map(p => (p.trim().startsWith('₹') ? p.trim() : '₹' + p.trim())).join(' / ');
+      }
+      return raw.startsWith('₹') ? raw : '₹' + raw;
+    }
+
+    /***** Render function for a section *****/
+    function renderMenu(sectionId, list){
+      const el = document.getElementById(sectionId);
+      if(!el) return;
+      // create HTML for each item
+      const html = list.map(([name, price]) => {
+        const p = formatPrice(price);
+        return `<div class="menu-item-row" role="listitem">
+                  <div class="flex flex-col">
+                    <span class="menu-item-name">${escapeHtml(name)}</span>
+                  </div>
+                  <div class="price-badge">${escapeHtml(p)}</div>
+                </div>`;
+      }).join('');
+      el.innerHTML = html;
+    }
+
+    /***** Escape helper to avoid injection (safe rendering) *****/
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
+    /***** Bulk render on load *****/
+    function renderAll(){
+      renderMenu('beverages-list', menuData.beverages);
+      renderMenu('shakes-list', menuData.thickShakes);
+      renderMenu('cafe-special-list', menuData.cafeDurgaSpecial);
+      renderMenu('breads-spreads-list', menuData.breadsSpreads);
+      renderMenu('snacks-list', menuData.snacks);
+      renderMenu('south-indian-list', menuData.southIndian);
+      renderMenu('parathas-list', menuData.parathas);
+      renderMenu('sandwiches-list', menuData.sandwiches);
+      renderMenu('pasta-fries-list', menuData.pastaFries);
+      renderMenu('pav-bhaji-list', menuData.pavBhaji);
+      renderMenu('pizza-list', menuData.pizza);
+      renderMenu('main-course-list', menuData.mains);
+      renderMenu('rice-meals-list', menuData.riceMeals);
+      renderMenu('chinese-veg-list', menuData.chineseVeg);
+      renderMenu('chinese-non-veg-list', menuData.chineseNonVeg);
+      renderMenu('fried-rice-veg-list', menuData.friedRiceVeg);
+      renderMenu('fried-rice-non-veg-list', menuData.friedRiceNonVeg);
+      renderMenu('extras-list', menuData.extras);
+    }
+
+    /***** Search functionality (client-side) *****/
+    const searchInput = document.getElementById('menuSearch');
+    const clearBtn = document.getElementById('clearSearch');
+
+    function filterMenu(query){
+      query = (query || "").trim().toLowerCase();
+      // If empty, render all normally
+      if(!query){
+        renderAll();
+        clearBtn.classList.add('hidden');
+        return;
+      }
+      clearBtn.classList.remove('hidden');
+
+      // build filtered lists by scanning all menuData arrays
+      const filtered = {};
+      Object.keys(menuData).forEach(k => {
+        filtered[k] = menuData[k].filter(([name]) => name.toLowerCase().includes(query));
+      });
+
+      // Render using filtered lists (show "No items" if empty)
+      Object.keys(filtered).forEach(key => {
+        const containerId = {
+          beverages: 'beverages-list',
+          thickShakes: 'shakes-list',
+          cafeDurgaSpecial: 'cafe-special-list',
+          breadsSpreads: 'breads-spreads-list',
+          snacks: 'snacks-list',
+          southIndian: 'south-indian-list',
+          parathas: 'parathas-list',
+          sandwiches: 'sandwiches-list',
+          pastaFries: 'pasta-fries-list',
+          pavBhaji: 'pav-bhaji-list',
+          pizza: 'pizza-list',
+          mains: 'main-course-list',
+          riceMeals: 'rice-meals-list',
+          chineseVeg: 'chinese-veg-list',
+          chineseNonVeg: 'chinese-non-veg-list',
+          friedRiceVeg: 'fried-rice-veg-list',
+          friedRiceNonVeg: 'fried-rice-non-veg-list',
+          extras: 'extras-list'
+        }[key];
+
+        if(!containerId) return;
+        const container = document.getElementById(containerId);
+        if(!container) return;
+
+        if(filtered[key].length){
+          container.innerHTML = filtered[key].map(([name, price]) => {
+            return `<div class="menu-item-row"><span class="menu-item-name">${escapeHtml(name)}</span><span class="price-badge">${escapeHtml(formatPrice(price))}</span></div>`;
+          }).join('');
+        } else {
+          container.innerHTML = `<p class="text-sm text-gray-500 py-2">No matching items</p>`;
+        }
+      });
+    }
+
+    searchInput?.addEventListener('input', e => filterMenu(e.target.value));
+    clearBtn?.addEventListener('click', () => { searchInput.value=''; filterMenu(''); clearBtn.classList.add('hidden'); });
+
+    /***** Smooth offset scroll for nav links (compensate header height) *****/
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e){
+        const targetId = this.getAttribute('href');
+        const target = document.querySelector(targetId);
+        if(!target) return;
+        e.preventDefault();
+        const headerH = document.querySelector('header').offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - headerH - 20;
+        window.scrollTo({ top, behavior:'smooth' });
+      });
+    });
+
+    /***** Print/download button *****/
+    document.getElementById('printMenu')?.addEventListener('click', () => {
+      // quick analytics-safe print
+      window.print();
+    });
+
+    /***** initial render once DOM loaded *****/
+    window.addEventListener('DOMContentLoaded', () => {
+      renderAll();
+      // simple reveal effect
+      document.querySelectorAll('.reveal').forEach((el, i) => el.style.animationDelay = (i*80)+'ms');
+    });
+
+    // small mobile nav toggle (progressive enhancement)
+    document.querySelectorAll('.js-open-nav').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mobile = document.getElementById('mobile-nav');
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        if(mobile) mobile.classList.toggle('hidden');
+      });
+    });
+  </script>
 </body>
 </html>

@@ -21,8 +21,9 @@
       --card-shadow: 0 8px 30px rgba(20,184,166,0.08);
     }
 
+    /* ENHANCEMENT: Smoother font stack and scroll behavior */
     html{scroll-behavior:smooth}
-    body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;padding-top:0;background:linear-gradient(180deg,var(--bg-soft),#ffffff 40%);color:#0f172a;}
+    body{font-family:'Inter',system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;padding-top:0;background:linear-gradient(180deg,var(--bg-soft),#ffffff 40%);color:#0f172a;}
 
     /* header gradient */
     .brand-gradient{
@@ -31,7 +32,7 @@
     }
 
     /* small card shadow & hover pop */
-    .menu-card{box-shadow:var(--card-shadow);transition:transform .22s ease, box-shadow .22s ease;}
+    .menu-card{box-shadow:var(--card-shadow);transition:transform .22s ease, box-shadow .22s ease; border-radius: 1rem;}
     .menu-card:hover{transform:translateY(-6px); box-shadow:0 18px 40px rgba(2,6,23,0.10);}
 
     /* menu item layout */
@@ -40,15 +41,28 @@
     .price-badge{font-weight:800;color:var(--accent-yellow);min-width:5rem;text-align:right;font-style:italic}
 
     /* section title */
-    .section-title{color:var(--primary-teal);font-size:1.9rem;font-weight:800;display:inline-block;border-bottom:4px solid var(--accent-yellow);padding-bottom:.35rem}
+    .section-title{color:#0f172a;font-size:1.9rem;font-weight:800;display:inline-block;border-bottom:4px solid var(--primary-teal);padding-bottom:.35rem}
 
     /* nav active underline */
     .nav-link { position:relative }
     .nav-link::after{ content:""; position:absolute; left:0; bottom:-6px; width:100%; height:3px; background:var(--accent-yellow); transform:scaleX(0); transform-origin:left; transition:transform .28s ease;}
     .nav-link:hover::after, .nav-link.active::after{ transform:scaleX(1); }
 
-    /* floating order button */
-    .float-order{position:fixed;right:20px;bottom:20px;z-index:80}
+    /* floating order button - Now fixed, but visibility controlled by JS */
+    .float-order{
+        position:fixed;
+        right:20px;
+        bottom:30px;
+        z-index:90;
+        opacity: 1; /* Default visible */
+        transition: opacity 0.3s ease;
+    }
+
+    /* Class added by JS to hide the buttons when near the footer */
+    .float-order.hidden-at-bottom {
+        opacity: 0;
+        pointer-events: none; /* Disable interaction when hidden */
+    }
 
     /* accessibility focus */
     a:focus, button:focus { outline:3px solid rgba(20,184,166,0.18); outline-offset:3px; }
@@ -56,6 +70,75 @@
     /* subtle entrance */
     @keyframes fadeUp { from { opacity:0; transform:translateY(10px)} to {opacity:1; transform:none} }
     .reveal { animation: fadeUp .48s ease both; }
+
+
+    /* =========================================================
+     * LOOPING IMAGE SLIDER STYLES (MODIFIED FOR JS CONTROL)
+     * ========================================================= */
+    .slider-container {
+        overflow: hidden;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        cursor: grab; /* Indicate draggable */
+    }
+    .slider-container.grabbing {
+        cursor: grabbing;
+    }
+
+    .slider-track {
+        display: flex;
+        padding: 10px;
+        width: 200%; /* Double the width to hold the duplicated content for seamless loop */
+        /* CSS animation removed, now controlled by JS requestAnimationFrame */
+        will-change: transform; /* Performance hint for smooth dragging/animation */
+    }
+
+    /* Define item size relative to the container */
+    .gallery-item {
+      /* Show 2.5 items on mobile, 3.5 on small screens, 4.75 on medium/desktop */
+      width: 40%; 
+      min-width: 40%;
+      margin-right: 1rem; 
+      aspect-ratio: 16/12;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      /* Prevent image dragging in the browser while using our custom drag */
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .gallery-item:hover {
+        transform: scale(1.03);
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none; /* Crucial for allowing drag on the image element */
+    }
+
+    /* Responsive adjustments for slider visibility */
+    @media (min-width: 640px) {
+        .gallery-item {
+            width: 28.57%; 
+            min-width: 28.57%;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .gallery-item {
+            width: 21.05%; 
+            min-width: 21.05%;
+        }
+    }
+    /* =========================================================
+     * END SLIDER STYLES
+     * ========================================================= */
 
     @media (max-width:640px){
       .section-title{font-size:1.4rem}
@@ -65,8 +148,9 @@
 
     /* print friendly - hide interactive elements when printing */
     @media print{
-      nav, .float-order, .search-bar, .socials-mobile { display:none !important; }
+      nav, .float-order, .search-bar, .socials-mobile, .gallery { display:none !important; }
       body { background: white; }
+      .section-title { border-bottom-color: #0f172a; }
     }
   </style>
 </head>
@@ -119,7 +203,7 @@
     </div>
 
     <!-- mobile nav -->
-    <div id="mobile-nav" class="md:hidden bg-white/5 border-t border-white/10">
+    <div id="mobile-nav" class="md:hidden bg-white/5 border-t border-white/10 hidden">
       <div class="max-w-6xl mx-auto px-4 py-2 overflow-x-auto">
         <div class="inline-flex gap-3 whitespace-nowrap">
           <a href="#beverages" class="text-white text-sm px-3 py-1 rounded-full bg-white/6">Drinks</a>
@@ -133,7 +217,7 @@
   </header>
 
   <!-- FLOATING ORDER / PRINT -->
-  <div class="float-order">
+  <div id="floatOrder" class="float-order">
     <div class="flex flex-col gap-3">
       <a href="tel:7741000209" class="inline-flex items-center gap-2 px-4 py-3 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 text-white shadow-lg transform hover:scale-105 transition" aria-label="Call to order">
         <i class="fa fa-phone-alt"></i> Order
@@ -145,7 +229,8 @@
   </div>
 
   <!-- MAIN -->
-  <main class="max-w-6xl mx-auto px-4 py-12">
+  <!-- We still keep a generous bottom padding for visual comfort -->
+  <main class="max-w-6xl mx-auto px-4 pt-12 pb-20">
 
     <!-- Intro -->
     <section class="text-center mb-10 reveal">
@@ -166,14 +251,54 @@
       </div>
     </section>
 
+    <!-- ENHANCEMENT: Looping Image Gallery Section with JS Drag/Swipe Control -->
+    <section class="gallery mb-12 reveal" style="animation-delay: 200ms;">
+        <h3 class="text-lg font-bold mb-4 text-center text-gray-700">FEATURED DISHES</h3>
+        <div class="slider-container" id="sliderContainer">
+            <!-- The track contains the original set of images and a duplicate set for seamless looping -->
+            <div class="slider-track" id="sliderTrack">
+                
+                <!-- Original Set (Set 1) -->
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./pav bhaji.png" alt="Image of Pav Bhaji" loading="lazy" />
+                </div>
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./dosa.png" alt="Image of Masala Dosa" loading="lazy" />
+                </div>
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./coffee.png" alt="Image of Cold Coffee" loading="lazy" />
+                </div>
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./meal.png" alt="Image of Paneer Thali" loading="lazy" />
+                </div>
+
+                <!-- Duplicate Set (Set 2) - This set is necessary for the continuous loop -->
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./pav bhaji.png" alt="Image of Pav Bhaji" loading="lazy" />
+                </div>
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./dosa.png" alt="Image of Masala Dosa" loading="lazy" />
+                </div>
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./coffee.png" alt="Image of Cold Coffee" loading="lazy" />
+                </div>
+                <div class="gallery-item">
+                    <img class="gallery-image" src="./meal.png" alt="Image of Paneer Thali" loading="lazy" />
+                </div>
+                
+            </div>
+        </div>
+        <p class="text-xs text-center text-gray-500 mt-2">Images feature dishes from our main menu. Click and drag to scroll!</p>
+    </section>
+
     <!-- Grid layout for major sections -->
     <section id="beverages" class="mb-8 reveal">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="menu-card rounded-2xl p-6 bg-white">
+        <div class="menu-card p-6 bg-white">
           <h3 class="text-lg font-bold mb-3">Beverages — Coffee & Hot Drinks</h3>
           <div id="beverages-list" aria-live="polite"></div>
         </div>
-        <div class="menu-card rounded-2xl p-6 bg-white flex flex-col items-center justify-center text-center text-gray-600">
+        <div class="menu-card p-6 bg-white flex flex-col items-center justify-center text-center text-gray-600">
           <svg width="84" height="84" viewBox="0 0 24 24" fill="none" class="mb-3" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M8 7v4a4 4 0 108 0V7" stroke="#14b8a6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
             <path d="M3 12h18" stroke="#facc15" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -185,7 +310,7 @@
     </section>
 
     <section id="shakes" class="mb-8 reveal">
-      <div class="menu-card p-6 rounded-2xl bg-white">
+      <div class="menu-card p-6 bg-white">
         <h3 class="text-lg font-bold mb-3">Thick Shakes</h3>
         <div id="shakes-list"></div>
       </div>
@@ -194,11 +319,11 @@
     <section id="special" class="mb-8 reveal">
       <h3 class="section-title">Breakfast & Specials</h3>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Eggs & Morning</h4>
           <div id="cafe-special-list"></div>
         </div>
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Breads & Spreads</h4>
           <div id="breads-spreads-list"></div>
         </div>
@@ -207,9 +332,19 @@
 
     <section id="snacks" class="mb-8 reveal">
       <h3 class="section-title">Snacks</h3>
-      <div class="mt-6 menu-card p-6 rounded-2xl bg-white">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div id="snacks-list" class="col-span-1 sm:col-span-2 lg:col-span-3"></div>
+      <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- ENHANCEMENT: Image placeholder inside a section (Replaced image URL with placeholder) -->
+        <div class="menu-card p-6 bg-white col-span-1">
+            <img class="gallery-image w-full h-auto rounded-xl mb-4" src="./vadapav.png" alt="Image of Vada Pav" loading="lazy" />
+            <h4 class="font-semibold mb-3">Quick Bites & Bhajjia</h4>
+            <div id="snacks-list"></div>
+        </div>
+        <div class="menu-card p-6 bg-white col-span-2">
+            <h4 class="font-semibold mb-3">Maggie & Savory Sides</h4>
+            <!-- Split snacks-list content to fill the remaining 2/3 column -->
+            <div id="maggie-list" class="mb-4"></div>
+            <h4 class="font-semibold mb-3 border-t pt-4">Pakoda & Toast</h4>
+            <div id="pakoda-list"></div>
         </div>
       </div>
     </section>
@@ -217,11 +352,11 @@
     <section id="south-indian" class="mb-8 reveal">
       <h3 class="section-title">South Indian & Parathas</h3>
       <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 menu-card p-6 rounded-2xl bg-white">
+        <div class="lg:col-span-2 menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Dosa, Idli & Uttappa</h4>
           <div id="south-indian-list"></div>
         </div>
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Parathas</h4>
           <div id="parathas-list"></div>
         </div>
@@ -230,14 +365,14 @@
 
     <section id="sandwiches" class="mb-8 reveal">
       <h3 class="section-title">Grilled Sandwiches</h3>
-      <div class="mt-6 menu-card p-6 rounded-2xl bg-white">
+      <div class="mt-6 menu-card p-6 bg-white">
         <div id="sandwiches-list"></div>
       </div>
     </section>
 
     <section id="pav-bhaji-section" class="mb-8 reveal">
       <h3 class="section-title">Pav Bhaji</h3>
-      <div class="mt-6 menu-card p-6 rounded-2xl bg-white max-w-2xl">
+      <div class="mt-6 menu-card p-6 bg-white max-w-2xl">
         <div id="pav-bhaji-list"></div>
       </div>
     </section>
@@ -245,11 +380,11 @@
     <section id="mains" class="mb-8 reveal">
       <h3 class="section-title">Main Course & Rice</h3>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Main Course</h4>
           <div id="main-course-list"></div>
         </div>
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Rice Meals</h4>
           <div id="rice-meals-list"></div>
         </div>
@@ -259,11 +394,11 @@
     <section id="pizza-section" class="mb-8 reveal">
       <h3 class="section-title">Pizza, Pasta & Fries</h3>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Pizza</h4>
           <div id="pizza-list"></div>
         </div>
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Pasta & Fries</h4>
           <div id="pasta-fries-list"></div>
         </div>
@@ -273,19 +408,19 @@
     <section id="chinese" class="mb-8 reveal">
       <h3 class="section-title">Chinese & Noodles</h3>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Chinese Starters</h4>
           <div id="chinese-veg-list"></div>
           <div id="chinese-non-veg-list" class="mt-4 border-t border-dashed pt-4"></div>
         </div>
-        <div class="menu-card p-6 rounded-2xl bg-white">
+        <div class="menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Fried Rice & Noodles</h4>
           <div id="fried-rice-veg-list"></div>
           <div id="fried-rice-non-veg-list" class="mt-4 border-t border-dashed pt-4"></div>
         </div>
       </div>
 
-      <div class="mt-6 max-w-xl mx-auto menu-card p-6 rounded-2xl bg-white">
+      <div class="mt-6 max-w-xl mx-auto menu-card p-6 bg-white">
         <h4 class="font-semibold mb-3">Extras</h4>
         <div id="extras-list"></div>
       </div>
@@ -294,7 +429,7 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-slate-900 text-white py-8">
+  <footer id="footer" class="bg-slate-900 text-white py-8">
     <div class="max-w-6xl mx-auto px-4 text-center">
       <p class="text-2xl font-bold mb-1" style="color:var(--accent-yellow)">CAFE DURGA</p>
       <p class="text-sm mb-3">Goa — Pillene Branch • <span class="font-semibold">📞 7741000209</span></p>
@@ -310,7 +445,7 @@
     </div>
   </footer>
 
-  <!-- SCRIPT: Data + Render logic -->
+  <!-- SCRIPT: Data + Render logic + Scroll Hiding Fix -->
   <script>
     /***** Data (cleaner arrays) *****/
     const menuData = {
@@ -335,12 +470,20 @@
       breadsSpreads: [
         ["Bun Maska","80"],["Bun Maska Jam","100"],["Bread Butter","80"],["Bread Butter Jam","100"],["Bread Butter Cheese Jam","120"]
       ],
-      snacks: [
-        ["Vada Pav","30"],["Poha","80"],["Upma","80"],["Sabudana Khichadi","180"],
-        ["Sabudana Vada","180"],["Misal Pav","140"],["Maggie","100"],["Masala Maggie","120"],
-        ["Cheese Masala Maggie","150"],["Egg Masala Maggie","170"],["Egg Masala Cheese Maggie","180"],
-        ["Kanda (Onion) Bhajjia","150"],["Allo Bhajjia","150"],["Paneer Pakoda","180"],["Garlic Toast","150"]
-      ],
+      // Re-organize snacks data for new layout
+      snacks: {
+          bites: [
+            ["Vada Pav","30"],["Poha","80"],["Upma","80"],["Sabudana Khichadi","180"],
+            ["Sabudana Vada","180"],["Misal Pav","140"]
+          ],
+          maggie: [
+            ["Maggie","100"],["Masala Maggie","120"],["Cheese Masala Maggie","150"],
+            ["Egg Masala Maggie","170"],["Egg Masala Cheese Maggie","180"]
+          ],
+          pakoda: [
+            ["Kanda (Onion) Bhajjia","150"],["Allo Bhajjia","150"],["Paneer Pakoda","180"],["Garlic Toast","150"]
+          ]
+      },
       southIndian: [
         ["Medu Wada","80"],["Steam Idli","80"],["Idli & Wada (2 Idli & 1 Wada)","120"],["Plain Dosa","120"],
         ["Masala Dosa","140"],["Ghee/Butter Sada Dosa","140"],["Ghee/Butter Masala Dosa","160"]
@@ -399,10 +542,26 @@
       return raw.startsWith('₹') ? raw : '₹' + raw;
     }
 
+    /***** Escape helper to avoid injection (safe rendering) *****/
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#039;');
+    }
+
     /***** Render function for a section *****/
     function renderMenu(sectionId, list){
       const el = document.getElementById(sectionId);
       if(!el) return;
+
+      // Handle the new structure for snacks
+      if (sectionId === 'snacks-list' || sectionId === 'maggie-list' || sectionId === 'pakoda-list') {
+          list = list || []; // Use the list passed for individual sub-sections
+      }
+
       // create HTML for each item
       const html = list.map(([name, price]) => {
         const p = formatPrice(price);
@@ -416,23 +575,18 @@
       el.innerHTML = html;
     }
 
-    /***** Escape helper to avoid injection (safe rendering) *****/
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'",'&#039;');
-    }
-
     /***** Bulk render on load *****/
     function renderAll(){
       renderMenu('beverages-list', menuData.beverages);
       renderMenu('shakes-list', menuData.thickShakes);
       renderMenu('cafe-special-list', menuData.cafeDurgaSpecial);
       renderMenu('breads-spreads-list', menuData.breadsSpreads);
-      renderMenu('snacks-list', menuData.snacks);
+      
+      // Handle the new split snacks sections
+      renderMenu('snacks-list', menuData.snacks.bites);
+      renderMenu('maggie-list', menuData.snacks.maggie);
+      renderMenu('pakoda-list', menuData.snacks.pakoda);
+
       renderMenu('south-indian-list', menuData.southIndian);
       renderMenu('parathas-list', menuData.parathas);
       renderMenu('sandwiches-list', menuData.sandwiches);
@@ -462,20 +616,28 @@
       }
       clearBtn.classList.remove('hidden');
 
-      // build filtered lists by scanning all menuData arrays
+      // Helper to search across all arrays, including nested snacks
       const filtered = {};
+
       Object.keys(menuData).forEach(k => {
-        filtered[k] = menuData[k].filter(([name]) => name.toLowerCase().includes(query));
+          if (k === 'snacks') {
+              // Handle nested snack arrays
+              filtered.snacks = {};
+              Object.keys(menuData.snacks).forEach(subK => {
+                  filtered.snacks[subK] = menuData.snacks[subK].filter(([name]) => name.toLowerCase().includes(query));
+              });
+          } else {
+              // Handle flat arrays
+              filtered[k] = menuData[k].filter(([name]) => name.toLowerCase().includes(query));
+          }
       });
 
       // Render using filtered lists (show "No items" if empty)
-      Object.keys(filtered).forEach(key => {
-        const containerId = {
+      const renderMap = {
           beverages: 'beverages-list',
           thickShakes: 'shakes-list',
           cafeDurgaSpecial: 'cafe-special-list',
           breadsSpreads: 'breads-spreads-list',
-          snacks: 'snacks-list',
           southIndian: 'south-indian-list',
           parathas: 'parathas-list',
           sandwiches: 'sandwiches-list',
@@ -489,19 +651,42 @@
           friedRiceVeg: 'fried-rice-veg-list',
           friedRiceNonVeg: 'fried-rice-non-veg-list',
           extras: 'extras-list'
-        }[key];
+      };
 
-        if(!containerId) return;
+      Object.keys(renderMap).forEach(key => {
+        const containerId = renderMap[key];
         const container = document.getElementById(containerId);
         if(!container) return;
+        const list = filtered[key];
 
-        if(filtered[key].length){
-          container.innerHTML = filtered[key].map(([name, price]) => {
+        if(list && list.length){
+          container.innerHTML = list.map(([name, price]) => {
             return `<div class="menu-item-row"><span class="menu-item-name">${escapeHtml(name)}</span><span class="price-badge">${escapeHtml(formatPrice(price))}</span></div>`;
           }).join('');
         } else {
           container.innerHTML = `<p class="text-sm text-gray-500 py-2">No matching items</p>`;
         }
+      });
+      
+      // Special handling for split snacks section
+      const snackContainers = {
+          'bites': 'snacks-list',
+          'maggie': 'maggie-list',
+          'pakoda': 'pakoda-list'
+      };
+
+      Object.keys(snackContainers).forEach(subK => {
+          const container = document.getElementById(snackContainers[subK]);
+          if (!container) return;
+          const list = filtered.snacks[subK];
+          
+          if (list && list.length) {
+              container.innerHTML = list.map(([name, price]) => {
+                  return `<div class="menu-item-row"><span class="menu-item-name">${escapeHtml(name)}</span><span class="price-badge">${escapeHtml(formatPrice(price))}</span></div>`;
+              }).join('');
+          } else {
+              container.innerHTML = `<p class="text-sm text-gray-500 py-2">No matching items</p>`;
+          }
       });
     }
 
@@ -527,11 +712,197 @@
       window.print();
     });
 
-    /***** initial render once DOM loaded *****/
+    /******************************************
+     * FIX: Dynamic Floating Button Visibility
+     ******************************************/
+    const floatOrderEl = document.getElementById('floatOrder');
+    const footerEl = document.getElementById('footer');
+    const visibilityThreshold = 100; // Distance in pixels from the bottom of the viewport to the top of the footer
+
+    function checkFloatButtonVisibility() {
+        if (!floatOrderEl || !footerEl) return;
+
+        // Calculate the footer position relative to the viewport
+        const footerRect = footerEl.getBoundingClientRect();
+        
+        // If the top of the footer is too close to the bottom of the viewport (or has scrolled past it)
+        // hide the floating button to prevent visual overlap.
+        if (footerRect.top < window.innerHeight + visibilityThreshold) {
+            floatOrderEl.classList.add('hidden-at-bottom');
+        } else {
+            floatOrderEl.classList.remove('hidden-at-bottom');
+        }
+    }
+
+    window.addEventListener('scroll', checkFloatButtonVisibility);
+    window.addEventListener('resize', checkFloatButtonVisibility);
+
+
+    /******************************************
+     * FIX: JS SLIDER CONTROL (Drag/Loop)
+     ******************************************/
+
+    const sliderContainer = document.getElementById('sliderContainer');
+    const sliderTrack = document.getElementById('sliderTrack');
+    
+    let isDragging = false;
+    let startX = 0;
+    let previousTranslateX = 0;
+    let currentTranslateX = 0;
+    let animationFrameId = null;
+    let autoScrollId = null; // Use a dedicated ID for the auto-scroll interval/timeout
+    const scrollSpeed = 0.5; // Pixels per frame (slower scrolling)
+    const NUM_ITEMS = 4; // Number of unique items in the original set
+
+    let totalOriginalWidth = 0; // Width of the first set of images
+
+    // Function to set the track position based on the currentTranslateX value
+    function setTranslate() {
+        // Use Math.round to ensure smooth pixel placement
+        sliderTrack.style.transform = `translateX(${Math.round(currentTranslateX)}px)`;
+    }
+
+    // Function to get the current translateX value from CSS (safely retrieve float)
+    function getTranslateX() {
+        const style = window.getComputedStyle(sliderTrack);
+        const matrix = style.transform.match(/matrix\((.+)\)/);
+        if (matrix) {
+            // The translateX value is the 5th element in a 2D transform matrix
+            return parseFloat(matrix[1].split(', ')[4]) || 0;
+        }
+        return 0;
+    }
+
+    // Loop correction: snaps the slider back to the start of the duplicated set (Set 2) 
+    function applyLoopCorrection() {
+        // Only apply correction if totalOriginalWidth is calculated
+        if (totalOriginalWidth === 0) return;
+
+        // If the slider has moved past the entire first set of images (negative direction)
+        if (currentTranslateX < -totalOriginalWidth) {
+            // Jump back one set width (seamless jump)
+            currentTranslateX += totalOriginalWidth;
+        } 
+        // If the slider moves back into the second set (positive direction)
+        else if (currentTranslateX > 0) {
+            // Jump forward one set width (seamless jump)
+            currentTranslateX -= totalOriginalWidth;
+        }
+    }
+
+    // Automatic continuous scrolling function (now using requestAnimationFrame for smoothness)
+    function autoScroll() {
+        if (!isDragging && totalOriginalWidth > 0) {
+            currentTranslateX -= scrollSpeed;
+            applyLoopCorrection();
+            setTranslate();
+        }
+        animationFrameId = requestAnimationFrame(autoScroll);
+    }
+    
+    // Mouse/Touch Event Handlers
+    function startDrag(clientX) {
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId); // Stop auto-scroll
+        }
+        isDragging = true;
+        startX = clientX;
+        // Get the current position right before dragging starts
+        previousTranslateX = getTranslateX(); 
+        sliderContainer.classList.add('grabbing');
+    }
+
+    function duringDrag(clientX) {
+        if (!isDragging) return;
+        const dragDistance = clientX - startX;
+        // Apply the drag distance relative to the position when drag started
+        currentTranslateX = previousTranslateX + dragDistance;
+        
+        applyLoopCorrection();
+        setTranslate();
+    }
+
+    function endDrag() {
+        if (!isDragging) return;
+        isDragging = false;
+        sliderContainer.classList.remove('grabbing');
+        // Restart the auto-scroll loop
+        animationFrameId = requestAnimationFrame(autoScroll); 
+    }
+
+    // Event Listeners for Mouse
+    sliderContainer.addEventListener('mousedown', (e) => {
+      e.preventDefault(); // Prevent text selection during drag
+      startDrag(e.clientX);
+    });
+    // Attach mousemove/mouseup to the window to handle dragging outside the container
+    window.addEventListener('mousemove', (e) => duringDrag(e.clientX));
+    window.addEventListener('mouseup', endDrag);
+
+    // Event Listeners for Touch (Mobile/Tablet Swipe)
+    sliderContainer.addEventListener('touchstart', (e) => {
+        // Prevent default only if two fingers are not used (to allow native scroll)
+        if (e.touches.length === 1) {
+            e.preventDefault(); 
+            startDrag(e.touches[0].clientX);
+        }
+    }, {passive: false}); // passive: false needed to allow preventDefault
+
+    sliderContainer.addEventListener('touchmove', (e) => {
+        if (e.touches.length === 1) {
+            duringDrag(e.touches[0].clientX);
+        }
+    }, {passive: true});
+
+    sliderContainer.addEventListener('touchend', endDrag);
+    sliderContainer.addEventListener('touchcancel', endDrag);
+
+    // Initialization logic for width calculation
+    function initializeSlider() {
+        const items = sliderTrack.querySelectorAll('.gallery-item');
+        if (items.length < NUM_ITEMS * 2) {
+            console.error("Slider requires at least 8 items (4 unique + 4 duplicates) for seamless loop.");
+            return;
+        }
+        
+        // Calculate the width of the entire original image set (4 items + 4 gaps)
+        // We calculate the bounding box of the first 'NUM_ITEMS' items.
+        
+        let width = 0;
+        for(let i = 0; i < NUM_ITEMS; i++) {
+            const item = items[i];
+            const itemRect = item.getBoundingClientRect();
+            const style = window.getComputedStyle(item);
+            const marginRight = parseFloat(style.marginRight) || 0;
+            width += itemRect.width + marginRight;
+        }
+
+        // totalOriginalWidth is the distance to scroll one set of images
+        totalOriginalWidth = width;
+        
+        // Set initial position to ensure the first set is visible
+        currentTranslateX = 0;
+        setTranslate();
+
+        // Start continuous scroll
+        if (animationFrameId) {
+            cancelAnimationFrame(animationFrameId);
+        }
+        autoScroll();
+    }
+
+    // Re-initialize slider on window resize to ensure correct width calculation
+    window.addEventListener('resize', initializeSlider);
+
+    // DOM load event listener
     window.addEventListener('DOMContentLoaded', () => {
       renderAll();
       // simple reveal effect
       document.querySelectorAll('.reveal').forEach((el, i) => el.style.animationDelay = (i*80)+'ms');
+      
+      // Initial checks
+      checkFloatButtonVisibility();
+      initializeSlider();
     });
 
     // small mobile nav toggle (progressive enhancement)

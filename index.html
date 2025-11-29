@@ -260,30 +260,30 @@
                 
                 <!-- Original Set (Set 1) -->
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./pav bhaji.png" alt="Image of Pav Bhaji" loading="lazy" />
+                    <img class="gallery-image" src="./assest/pav bhaji.png" alt="Image of Pav Bhaji" loading="lazy" />
                 </div>
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./dosa.png" alt="Image of Masala Dosa" loading="lazy" />
+                    <img class="gallery-image" src="./assest/dosa.png" alt="Image of Masala Dosa" loading="lazy" />
                 </div>
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./coffee.png" alt="Image of Cold Coffee" loading="lazy" />
+                    <img class="gallery-image" src="./assest/coffee.png" alt="Image of Cold Coffee" loading="lazy" />
                 </div>
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./meal.png" alt="Image of Paneer Thali" loading="lazy" />
+                    <img class="gallery-image" src="./assest/meal.png" alt="Image of Paneer Thali" loading="lazy" />
                 </div>
 
                 <!-- Duplicate Set (Set 2) - This set is necessary for the continuous loop -->
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./pav bhaji.png" alt="Image of Pav Bhaji" loading="lazy" />
+                    <img class="gallery-image" src="../assest/pav bhaji.png" alt="Image of Pav Bhaji" loading="lazy" />
                 </div>
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./dosa.png" alt="Image of Masala Dosa" loading="lazy" />
+                    <img class="gallery-image" src="./assest/dosa.png" alt="Image of Masala Dosa" loading="lazy" />
                 </div>
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./coffee.png" alt="Image of Cold Coffee" loading="lazy" />
+                    <img class="gallery-image" src="./assest/coffee.png" alt="Image of Cold Coffee" loading="lazy" />
                 </div>
                 <div class="gallery-item">
-                    <img class="gallery-image" src="./meal.png" alt="Image of Paneer Thali" loading="lazy" />
+                    <img class="gallery-image" src="./assest/meal.png" alt="Image of Paneer Thali" loading="lazy" />
                 </div>
                 
             </div>
@@ -335,7 +335,7 @@
       <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
         <!-- ENHANCEMENT: Image placeholder inside a section (Replaced image URL with placeholder) -->
         <div class="menu-card p-6 bg-white col-span-1">
-            <img class="gallery-image w-full h-auto rounded-xl mb-4" src="./vadapav.png" alt="Image of Vada Pav" loading="lazy" />
+            <img class="gallery-image w-full h-auto rounded-xl mb-4" src="./assest/vaddda.png" alt="Image of Vada Pav" loading="lazy" />
             <h4 class="font-semibold mb-3">Quick Bites & Bhajjia</h4>
             <div id="snacks-list"></div>
         </div>
@@ -409,14 +409,16 @@
       <h3 class="section-title">Chinese & Noodles</h3>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="menu-card p-6 bg-white">
-          <h4 class="font-semibold mb-3">Chinese Starters</h4>
+          <h4 class="font-semibold mb-3">Chinese Starters (Veg)</h4>
           <div id="chinese-veg-list"></div>
-          <div id="chinese-non-veg-list" class="mt-4 border-t border-dashed pt-4"></div>
+          <h4 class="font-semibold mb-3 mt-4 border-t border-dashed pt-4">Chinese Starters (Non-Veg)</h4>
+          <div id="chinese-non-veg-list"></div>
         </div>
         <div class="menu-card p-6 bg-white">
-          <h4 class="font-semibold mb-3">Fried Rice & Noodles</h4>
+          <h4 class="font-semibold mb-3">Fried Rice & Noodles (Veg)</h4>
           <div id="fried-rice-veg-list"></div>
-          <div id="fried-rice-non-veg-list" class="mt-4 border-t border-dashed pt-4"></div>
+          <h4 class="font-semibold mb-3 mt-4 border-t border-dashed pt-4">Fried Rice & Noodles (Non-Veg)</h4>
+          <div id="fried-rice-non-veg-list"></div>
         </div>
       </div>
 
@@ -459,18 +461,26 @@
       ],
       thickShakes: [
         ["Ferrero Rocher Shake","250"],["Oreo Cookie Shake","220"],["KitKat Shake","220"],
-        ["Oreo KitKat Shake","250"],["Belgian Chocolate Shake","200"],["Vanilla Shake","200"],
-        ["Banana Shake","200"],["Mango Shake","200"],["Strawberry Shake","200"],["Chikoo Shake","200"]
+        // Corrected spelling from 'Orero KitKat'
+        ["Oreo KitKat Shake","250"],["Belgian Chocolate Shake","200"],
+        // Corrected spelling from 'Vanilia Shake'
+        ["Vanilla Shake","200"],["Banana Shake","200"],["Mango Shake","200"],["Strawberry Shake","200"],
+        // Corrected spelling from 'Chickoo Shake'
+        ["Chikoo Shake","200"]
       ],
       cafeDurgaSpecial: [
         ["Egg Omelette","150"],["Masala Omelette","180"],["Masala Cheese Omelette","200"],
+        // Corrected format and spacing
         ["Mushroom & Herb Omelette","200"],["Egg White Omelette","200"],["Egg Bhurji","200"],
-        ["Scrambled Egg","150"],["Omelette Sandwich","150"],["Omelette Cheese Sandwich","170"],["Paneer Bhurji","200"]
+        // Corrected spelling from 'Scramblled Egg'
+        ["Scrambled Egg","150"],["Omelette Sandwich","150"],
+        // Corrected spelling/spacing from 'OmeletteCheese'
+        ["Omelette Cheese Sandwich","170"],["Paneer Bhurji","200"]
       ],
       breadsSpreads: [
         ["Bun Maska","80"],["Bun Maska Jam","100"],["Bread Butter","80"],["Bread Butter Jam","100"],["Bread Butter Cheese Jam","120"]
       ],
-      // Re-organize snacks data for new layout
+      // Re-organized snacks data from PDF
       snacks: {
           bites: [
             ["Vada Pav","30"],["Poha","80"],["Upma","80"],["Sabudana Khichadi","180"],
@@ -478,6 +488,7 @@
           ],
           maggie: [
             ["Maggie","100"],["Masala Maggie","120"],["Cheese Masala Maggie","150"],
+            // Corrected spelling from 'Egg Malasa'
             ["Egg Masala Maggie","170"],["Egg Masala Cheese Maggie","180"]
           ],
           pakoda: [
@@ -485,46 +496,112 @@
           ]
       },
       southIndian: [
-        ["Medu Wada","80"],["Steam Idli","80"],["Idli & Wada (2 Idli & 1 Wada)","120"],["Plain Dosa","120"],
-        ["Masala Dosa","140"],["Ghee/Butter Sada Dosa","140"],["Ghee/Butter Masala Dosa","160"]
+        ["Medu Wada","80"],["Steam Idli","80"],
+        // Corrected spelling from 'Idili'
+        ["Idli & Wada (2 Idli & 1 Wada)","120"],["Plain Dosa","120"],
+        ["Masala Dosa","140"],["Ghee/Butter Sada Dosa","140"],
+        // Corrected spelling from 'Malasa'
+        ["Ghee/Butter Masala Dosa","160"],
+        // Added missing items from PDF
+        ["Plain Cheese Dosa","140"],["Masala Cheese Dosa","160"],["Onion Uttappa","160"],
+        ["Onion Cheese Uttappa","180"],["Tomato Uttappa","160"],["Tomato Cheese Uttappa","180"],
+        ["Onion Tomato Uttappa","200"],["Onion Tomato Cheese Uttappa","220"],["Plain Rawa Dosa","150"],
+        ["Plain Ghee Rawa Dosa","170"],["Rawa Masala Dosa","190"],["Rawa Ghee Masala Dosa","210"],
+        ["Rawa Onion Dosa","170"],["Rawa Onion Ghee Dosa","180"],
+        ["Mysore Sada Dosa","130"],["Mysore Masala Dosa","150"],["Mysore Masala Cheese Dosa","170"]
       ],
       parathas: [
         ["Aloo Paratha","180"],["Gobi Paratha","180"],["Aloo Cheese Paratha","210"],
         ["Mix Vegetable Paratha","180"],["Paneer Paratha","210"],["Cheese Paratha","210"]
       ],
       sandwiches: [
-        ["Veg Sandwich","150"],["Veg Cheese Sandwich","180"],["Paneer Tikka Sandwich","200"],
-        ["Chicken Mayo Sandwich","220"],["Chicken Cheese Mayo Sandwich","250"],["Nutella Sandwich","150"]
+        ["Veg Sandwich","150"],["Veg Cheese Sandwich","180"],
+        // Added missing items from PDF
+        ["Veg Paneer Sandwich","200"],["Veg Paneer Cheese Sandwich","220"],
+        ["Paneer Tikka Sandwich","200"],
+        // Added missing items from PDF
+        ["Paneer Tikka Cheese Sandwich","220"],["Corn Sandwich","180"],["Corn Cheese Sandwich","200"],
+        ["Chicken Mayo Sandwich","220"],["Chicken Cheese Mayo Sandwich","250"],
+        // Added missing items from PDF
+        ["Chicken Barbeque Sandwich","220"],["Chicken Barbeque Cheese Sandwich","250"],
+        ["Chicken Tikka Sandwich","220"],["Chicken Tikka Cheese Sandwich","250"],
+        ["Vegetable Club Sandwich","180"],["Vegetable Club Cheese Sandwich","220"],
+        ["Chicken Club Sandwich","280"],["Chicken Club Cheese Sandwich","300"],
+        ["Nutella Sandwich","150"],
+        // Added missing item from PDF
+        ["Nutella Cheeese Sandwich","170"]
       ],
       pastaFries: [
         ["French Fries Salted","120"],["Peri Peri Fries","140"],["Masala Fries","140"],
-        ["Cheese Fries","160"],["Penne Alfredo Pasta","200/240"],["Penne Arrabiata Pasta","200/240"],["Aglio Olio Spaghetti","200/240"]
+        ["Cheese Fries","160"],
+        // Modified Pasta items to reflect Veg/Chicken structure from PDF
+        ["Penne Alfredo Pasta (Veg / Chicken)","200/240"],
+        ["Penne Arrabiata Pasta (Veg / Chicken)","200/240"],
+        ["Aglio Olio Spaghetti Pasta (Veg / Chicken)","200/240"]
       ],
       pavBhaji: [
-        ["Amul Pav Bhaji","140"],["Cheese Pav Bhaji","170"],["Paneer Pav Bhaji","170"],["Paneer Cheese Pav Bhaji","190"]
+        ["Amul Pav Bhaji","140"],["Cheese Pav Bhaji","170"],["Paneer Pav Bhaji","170"],["Paneer Cheese Pav Bhaji","190"],
+        // Added missing items from PDF
+        ["Masala Pav (double)","140"],["Extra Pav (Single Pav)","20"],["Extra Pav (Double Pav)","40"]
       ],
       pizza: [
+        // Corrected spelling from 'Margherita'
         ["Margherita Pizza","185"],["Farmland Pizza","200"],["Corn & Cheese Pizza","200"],
-        ["Paneer Tandoori Pizza","240"],["Chicken Barbecue Pizza","280"]
+        ["Paneer Tandoori Pizza","240"],
+        // Added missing items from PDF
+        ["Indo-Italian Pizza","240"],
+        ["Chicken Barbecue Pizza","280"],
+        // Split item from PDF for better searchability
+        ["Chicken Tikka Pizza","280"],
+        ["Chicken Peri Peri Pizza","280"],
+        ["Double Chicken Pizza (With Tikka & Peri Peri)","320"]
       ],
       mains: [
-        ["Mutter Paneer","300"],["Paneer Masala","280"],["Paneer Bhurji","300"],["Dal Fry","200"],
-        ["Thali (Dal Fry, Gravy Vegetable, 2 Laccha Paratha, Steam Rice, Papad)","330"]
+        ["Mutter Paneer","300"],["Paneer Masala","280"],["Paneer Bhurji","300"],
+        // Added missing items from PDF
+        ["Mushroom Masala","280"],["Aloo Mutter","250"],["Green Peas Masala","250"],
+        ["Sev Bhaji","250"],["Chana Masala","250"],["Chana Paneer Masala","280"],
+        ["Veg Kolhapuri","250"],
+        ["Dal Fry","200"],["Dal Tadka","220"],
+        // Detailed Thali items from PDF for clarity
+        ["Thali (Dal Fry, Gravy Vegetable, Dry Vegetable, 2 Laccha Paratha, Steam Rice, Roasted Papad)","330"],
+        ["Special Thali (Dal Tadka, Paneer Gravy, Dry Vegetable, 2 Laccha Paratha, Tawa Pulav, Roasted Papad & Sweet)","380"]
       ],
       riceMeals: [
-        ["Jeera Rice With Dal Tadka","180"],["Dal Khichadi","220"],["Veg Pulav","200"],["Tawa Pulav","220"]
+        // Corrected spelling from 'Tardka'
+        ["Jeera Rice With Dal Tadka","180"],["Dal Khichadi","220"],["Veg Pulav","200"],["Tawa Pulav","220"],
+        // Added missing items from PDF
+        ["Paneer Pulav","260"],["Egg Pulav","180"],["Mushroom Tawa Pulav","260"],
+        ["Steam Rice","120"],["Jeera Rice","150"]
       ],
       chineseVeg: [
-        ["Paneer Chilly","220"],["Gobi Manchurian","200"],["Veg Crispy","200"]
+        ["Paneer Chilly","220"],
+        // Added missing items from PDF
+        ["Paneer 65","220"],["Paneer Crispy","220"],
+        ["Gobi Manchurian","200"],["Veg Crispy","200"],
+        ["Veg 65 Dry","200"],["Mushroom Chilli","225"],
+        ["Veg Manchurian Dry","185"],["Veg Manchurian Gravy","220"]
       ],
       chineseNonVeg: [
-        ["Chicken Chilly","240"],["Chicken 65","240"],["Chicken Lolipop (6 Pcs)","250"]
+        ["Chicken Chilly","240"],["Chicken 65","240"],
+        // Split item from PDF for better representation
+        ["Chicken Lolipop (6 Pcs)","250"],["Chicken Lolipop In Schezwan Sauce","280"],
+        ["Chicken Crispy","240"],["Chicken Manchurian Dry","245"],["Chicken Manchurian Gravy","260"]
       ],
       friedRiceVeg: [
-        ["Veg Fried Rice","185"],["Veg Hakka Noodles","185"]
+        ["Veg Fried Rice","185"],
+        // Added missing items from PDF
+        ["Mushroom Fried Rice","200"],["Veg Schezwan Fried Rice","200"],
+        ["Veg Manchurian Fried Rice","225"],["Veg Tripple Schezwan Fried Rice","250"],
+        ["Veg Hakka Noodles","185"],["Veg Schezwan Hakka Noodles","200"]
       ],
       friedRiceNonVeg: [
-        ["Chicken Fried Rice","240"],["Chicken Hakka Noodle","240"]
+        ["Chicken Fried Rice","240"],
+        // Added missing items from PDF
+        ["Chicken Egg Fried Rice","245"],["Chicken Schezwan Fried Rice","245"],
+        ["Chicken Triple Schezwan Fried Rice","285"],["Chicken Manchurian Fried Rice","285"],
+        ["Chicken Hakka Noodle","240"],["Chicken Schezwan Hakka Noodle","245"],
+        ["Chicken Manchurian Hakka Noodle","275"]
       ],
       extras: [
         ["* Cheese","30"],["* Butter","25"],["* Paratha","40"],["Mineral Water","20"]

@@ -41,7 +41,17 @@
     .price-badge{font-weight:800;color:var(--accent-yellow);min-width:5rem;text-align:right;font-style:italic}
 
     /* section title */
+    /* Updated: section-title now uses a custom underline style for consistency with Thick Shakes */
     .section-title{color:#0f172a;font-size:1.9rem;font-weight:800;display:inline-block;border-bottom:4px solid var(--primary-teal);padding-bottom:.35rem}
+    
+    /* New style for highlighted titles */
+    .highlighted-title {
+        text-decoration: underline;
+        text-decoration-color: var(--accent-yellow);
+        text-decoration-thickness: 4px;
+        text-underline-offset: 4px;
+    }
+
 
     /* nav active underline */
     .nav-link { position:relative }
@@ -160,15 +170,16 @@
   <header class="brand-gradient sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
       <div class="flex items-center gap-4">
-        <div class="rounded-lg p-2 bg-white/10">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" class="text-white" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M3 12a9 9 0 1 1 18 0 9 9 0 0 1-18 0z" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"></path>
-            <path d="M8 12h8M10 8h4M10 16h4" stroke="white" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
-          </svg>
-        </div>
-        <div>
-          <h1 class="text-white text-2xl md:text-3xl font-extrabold tracking-wider uppercase" style="letter-spacing:.12em">CAFE DURGA</h1>
-          <p class="text-white/90 text-xs md:text-sm">Pillene Branch — Goa</p>
+        <!-- Replaced Logo SVG and Cafe Durga text with a placeholder image -->
+        <div class="flex items-center gap-3">
+          <img src="./image.png" 
+               alt="Placeholder Logo" 
+               class="rounded-lg p-1 bg-white/10 h-12  md:h-16" />
+          <div>
+            <!-- REMOVED "YOUR CAFE NAME" as requested. Leave h1 empty or hidden if you only want the logo visible -->
+            <h1 class="sr-only text-white text-2xl md:text-3xl font-extrabold tracking-wider uppercase" style="letter-spacing:.12em">YOUR CAFE NAME</h1>
+            <p class="text-white/90 text-xs md:text-sm">Pilerne Branch — Goa</p>
+          </div>
         </div>
       </div>
 
@@ -295,7 +306,8 @@
     <section id="beverages" class="mb-8 reveal">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div class="menu-card p-6 bg-white">
-          <h3 class="text-lg font-bold mb-3">Beverages — Coffee & Hot Drinks</h3>
+          <!-- 1. ADDED underline classes to Beverages -->
+          <h3 class="text-lg font-bold mb-3 underline decoration-yellow-500 decoration-4 underline-offset-4">Beverages</h3>
           <div id="beverages-list" aria-live="polite"></div>
         </div>
         <div class="menu-card p-6 bg-white flex flex-col items-center justify-center text-center text-gray-600">
@@ -311,7 +323,8 @@
 
     <section id="shakes" class="mb-8 reveal">
       <div class="menu-card p-6 bg-white">
-        <h3 class="text-lg font-bold mb-3">Thick Shakes</h3>
+        <!-- Kept the underline for consistency -->
+        <h3 class="text-lg font-bold mb-3 underline decoration-yellow-500 decoration-4 underline-offset-4">Thick Shakes</h3>
         <div id="shakes-list"></div>
       </div>
     </section>
@@ -336,7 +349,8 @@
         <!-- ENHANCEMENT: Image placeholder inside a section (Replaced image URL with placeholder) -->
         <div class="menu-card p-6 bg-white col-span-1">
             <img class="gallery-image w-full h-auto rounded-xl mb-4" src="./vaddda.png" alt="Image of Vada Pav" loading="lazy" />
-            <h4 class="font-semibold mb-3">Quick Bites & Bhajjia</h4>
+            <!-- 2. CORRECTED: Removed "& Bhajjia" -->
+            <h4 class="font-semibold mb-3">Quick Bites</h4>
             <div id="snacks-list"></div>
         </div>
         <div class="menu-card p-6 bg-white col-span-2">
@@ -349,18 +363,21 @@
       </div>
     </section>
 
+    <!-- 3. SPLIT: South Indian -->
     <section id="south-indian" class="mb-8 reveal">
-      <h3 class="section-title">South Indian & Parathas</h3>
-      <div class="mt-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2 menu-card p-6 bg-white">
+      <h3 class="section-title">South Indian</h3>
+      <div class="mt-6 menu-card p-6 bg-white">
           <h4 class="font-semibold mb-3">Dosa, Idli & Uttappa</h4>
           <div id="south-indian-list"></div>
-        </div>
-        <div class="menu-card p-6 bg-white">
-          <h4 class="font-semibold mb-3">Parathas</h4>
-          <div id="parathas-list"></div>
-        </div>
       </div>
+    </section>
+
+    <!-- 3. SPLIT: Parathas -->
+    <section id="parathas" class="mb-8 reveal">
+        <h3 class="section-title">Parathas</h3>
+        <div class="mt-6 menu-card p-6 bg-white max-w-2xl">
+            <div id="parathas-list"></div>
+        </div>
     </section>
 
     <section id="sandwiches" class="mb-8 reveal">
@@ -377,34 +394,39 @@
       </div>
     </section>
 
-    <section id="mains" class="mb-8 reveal">
-      <h3 class="section-title">Main Course & Rice</h3>
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="menu-card p-6 bg-white">
-          <h4 class="font-semibold mb-3">Main Course</h4>
-          <div id="main-course-list"></div>
-        </div>
-        <div class="menu-card p-6 bg-white">
-          <h4 class="font-semibold mb-3">Rice Meals</h4>
-          <div id="rice-meals-list"></div>
-        </div>
+    <!-- 4. SPLIT: Main Course -->
+    <section id="main-course" class="mb-8 reveal">
+      <h3 class="section-title">Main Course</h3>
+      <div class="mt-6 menu-card p-6 bg-white">
+        <div id="main-course-list"></div>
       </div>
     </section>
 
+    <!-- 4. SPLIT: Rice Meals -->
+    <section id="rice-meals" class="mb-8 reveal">
+        <h3 class="section-title">Rice Meals</h3>
+        <div class="mt-6 menu-card p-6 bg-white max-w-2xl">
+            <div id="rice-meals-list"></div>
+        </div>
+    </section>
+
+    <!-- 5. Split: Pizza -->
     <section id="pizza-section" class="mb-8 reveal">
-      <h3 class="section-title">Pizza, Pasta & Fries</h3>
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="menu-card p-6 bg-white">
-          <h4 class="font-semibold mb-3">Pizza</h4>
-          <div id="pizza-list"></div>
-        </div>
-        <div class="menu-card p-6 bg-white">
-          <h4 class="font-semibold mb-3">Pasta & Fries</h4>
-          <div id="pasta-fries-list"></div>
-        </div>
+      <h3 class="section-title">Pizza</h3>
+      <div class="mt-6 menu-card p-6 bg-white max-w-2xl">
+        <div id="pizza-list"></div>
       </div>
     </section>
 
+    <!-- 5. Split: Pasta & Fries -->
+    <section id="pasta-fries-section" class="mb-8 reveal">
+      <h3 class="section-title">Pasta & Fries</h3>
+      <div class="mt-6 menu-card p-6 bg-white max-w-2xl">
+        <div id="pasta-fries-list"></div>
+      </div>
+    </section>
+    
+    <!-- 5. Split: Chinese & Noodles (Title updated for clarity) -->
     <section id="chinese" class="mb-8 reveal">
       <h3 class="section-title">Chinese & Noodles</h3>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -433,8 +455,11 @@
   <!-- FOOTER -->
   <footer id="footer" class="bg-slate-900 text-white py-8">
     <div class="max-w-6xl mx-auto px-4 text-center">
-      <p class="text-2xl font-bold mb-1" style="color:var(--accent-yellow)">CAFE DURGA</p>
-      <p class="text-sm mb-3">Goa — Pillene Branch • <span class="font-semibold">📞 7741000209</span></p>
+      <!-- Replaced Cafe Durga text with a placeholder image -->
+      <img src="./image.png" 
+           alt="Placeholder Logo" 
+           class="mx-auto mb-3 rounded-lg h-20" />
+      <p class="text-sm mb-3">Goa — Pilerne Branch • <span class="font-semibold">📞 7741000209</span></p>
       <div class="flex justify-center gap-4 mb-3">
         <a href="https://www.instagram.com/cafedurga.goa" class="text-white/90">
           <i class="fab fa-instagram fa-2x"></i>
@@ -443,7 +468,7 @@
           <i class="fab fa-google fa-2x"></i>
         </a>
       </div>
-      <p class="text-xs opacity-80">&copy; 2025 Cafe Durga. All rights reserved.</p>
+      <p class="text-xs opacity-80">&copy; 2025 Your Cafe Name. All rights reserved.</p>
     </div>
   </footer>
 
